@@ -1,9 +1,10 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql').graphqlHTTP;
 const schema = require('./schema')
+var cors = require('cors')
 
 const app = express();
-
+ app.use(cors())
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://ajay_singla:H1PJ64EK1hEB4Eya@cluster0.iimcq.mongodb.net/spincv?retryWrites=true&w=majority')
@@ -19,7 +20,7 @@ app.use('/graphql', graphqlHTTP({
     schema,
     //directing express-graphql to use graphiql when goto '/graphql' address in the browser
     //which provides an interface to make GraphQl queries
-    graphiql:true
+    graphiql: true
 }));
 
 app.listen(3000, () => {
