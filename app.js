@@ -4,6 +4,14 @@ const schema = require('./schema')
 
 const app = express();
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://ajay_singla:H1PJ64EK1hEB4Eya@cluster0.iimcq.mongodb.net/spincv?retryWrites=true&w=majority')
+
+mongoose.connection.once('open', () => {
+    console.log('conneted to database');
+});
+
 //This route will be used as an endpoint to interact with Graphql, 
 //All queries will go through this route. 
 app.use('/graphql', graphqlHTTP({
