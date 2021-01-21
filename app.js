@@ -13,6 +13,12 @@ mongoose.connection.once('open', () => {
     console.log('conneted to database');
 });
 
+app.use("/",function(req, res){
+    console.log("Create update schema");
+    res.send("API is running")
+    
+})
+
 //This route will be used as an endpoint to interact with Graphql, 
 //All queries will go through this route. 
 app.use('/graphql', graphqlHTTP({
