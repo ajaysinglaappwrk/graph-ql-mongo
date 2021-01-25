@@ -40,7 +40,6 @@ MongoClient.connect(url, function (err, db) {
 });
 
 app.use("/getCollection", async function (req, res) {
-
   let data = await dbo.collection("Pages").find({}).toArray();
   res.json(data);
 
@@ -52,13 +51,38 @@ app.use("/saveField", async function (req, res) {
   let dataToSave = {};
   data.forEach(element => {
     dataToSave[element.fieldName] = element.fieldValue;
+    dataToSave["page"] = element.page;
   });
+
   dbo.collection("HomePage").insertOne(dataToSave, function (err) {
     if (err) throw err;
     console.log("1 document inserted");
     res.send("Done");
   });
 
+});
+
+app.use("/updateFields/:id", async function (req, res) {
+  let data = req.body;
+
+  data.forEach(async (element) => {
+    var update = { $set: {} };
+    update.$set[element.fieldName] = element.fieldValue;
+
+    await dbo.collection("HomePage").updateOne(
+      { _id: ObjectId(req.params.id) }, update);
+
+    // dataToSave[element.fieldName] = element.fieldValue;
+    // dataToSave["page"] = element.page;
+  });
+
+  res.send("Done");
+
+});
+
+app.use("/getPageData", async function (req, res) {
+  var data = await dbo.collection("HomePage").findOne({ page: 'Home' });
+  res.send(data);
 
 });
 
@@ -90,7 +114,7 @@ app.use("/createCollection", function (req, res) {
     res.send("Done");
   });
 
-})
+});
 
 
 
