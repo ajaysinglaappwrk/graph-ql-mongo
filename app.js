@@ -106,6 +106,8 @@ app.use("/createCollection", function (req, res) {
   let myObj = {
     fieldName: req.body.fieldName,
     fieldType: req.body.fieldType,
+    fieldLabel: req.body.fieldLabel,
+    required: req.body.required,
     page: req.body.page
   }
   dbo.collection("Pages").insertOne(myObj, function (err) {
