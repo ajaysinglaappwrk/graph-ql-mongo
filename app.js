@@ -3,7 +3,7 @@ const graphqlHTTP = require('express-graphql').graphqlHTTP;
 const schema = require('./schema')
 var cors = require('cors')
 var ObjectId = require('mongodb').ObjectID;
-
+const port = process.env.PORT || '3000';
 const app = express();
 // middleware
 app.use(express.json());
@@ -131,6 +131,6 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000');
+app.listen(port, () => {
+  console.log('Listening on port '+ port);
 }); 
