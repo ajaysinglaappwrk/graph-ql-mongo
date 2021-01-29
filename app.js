@@ -44,6 +44,11 @@ app.use("/getCollection", async function (req, res) {
   res.json(data);
 
 });
+app.use("/getAllMediaImages", async function (req, res) {
+  let data = await dbo.collection("mediacontent").find({}).toArray();
+  res.json(data);
+
+});
 
 app.use("/saveField", async function (req, res) {
   let data = req.body;
@@ -79,6 +84,8 @@ app.use("/updateFields/:id", async function (req, res) {
   res.send("Done");
 
 });
+
+
 
 app.use("/getPageData", async function (req, res) {
   var data = await dbo.collection("HomePage").findOne({ page: 'Home' });
@@ -130,7 +137,11 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
+app.use("/", async function (req, res) {
+  res.send("API is Running");
+
+});
 
 app.listen(port, () => {
-  console.log('Listening on port '+ port);
+  console.log('Listening on port ' + port);
 }); 
