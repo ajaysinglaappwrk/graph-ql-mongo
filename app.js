@@ -24,26 +24,14 @@ const url =
 MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   dbo = db.db("spincv");
-  //Create a collection name "customers":
-  // dbo.createCollection("HomePage", function (err, res) {
-  //   if (err) throw err;
-  //   console.log("Collection created!");
-  //   db.close();
-  // });
-
-  // var myobj = { name: "APPWRK IT SOLUTIONS PVT LTD.", address: "Chandigarh, India", contact:"9416269166" };
-  // dbo.collection("customers").insertOne(myobj, function(err, res) {
-  //   if (err) throw err;
-  //   console.log("1 document inserted");
-  //   db.close();
-  // });
 });
 
-app.use("/getCollection", async function (req, res) {
-  let data = await dbo.collection("Pages").find({}).toArray();
+app.use("/getCollection/:page", async function (req, res) {
+  let data = await dbo.collection("Pages").find({ page: req.params.page }).toArray();
   res.json(data);
 
 });
+
 app.use("/getAllMediaImages", async function (req, res) {
   let data = await dbo.collection("mediacontent").find({}).toArray();
   res.json(data);
@@ -76,9 +64,6 @@ app.use("/updateFields/:id", async function (req, res) {
 
     await dbo.collection("HomePage").updateOne(
       { _id: ObjectId(req.params.id) }, update);
-
-    // dataToSave[element.fieldName] = element.fieldValue;
-    // dataToSave["page"] = element.page;
   });
 
   res.send("Done");
@@ -87,9 +72,9 @@ app.use("/updateFields/:id", async function (req, res) {
 
 
 
-app.use("/getPageData", async function (req, res) {
-  var data = await dbo.collection("HomePage").findOne({ page: 'Home' });
-  res.send(data);
+app.use("/getPageData/:page", async function (req, res) {
+  var data = await dbo.collection("HomePage").findOne({ page: req.params.page });
+  res.json(data);
 
 });
 
@@ -103,13 +88,6 @@ app.use("/disableField", async function (req, res) {
 });
 
 app.use("/createCollection", function (req, res) {
-
-  // dbo.createCollection("Pages", function (err, res) {
-  //   if (err) throw err;
-  //   console.log("Collection created!");
-  //   db.close();
-  // });
-
   let myObj = {
     fieldName: req.body.fieldName,
     fieldType: req.body.fieldType,
@@ -125,7 +103,25 @@ app.use("/createCollection", function (req, res) {
 
 });
 
+app.use("/createSchema", function (req, res) {
 
+  let myObj = {
+    name: req.body.page
+  }
+
+  dbo.collection("schemas").insertOne(myObj, function (err) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    res.send("Done");
+  });
+
+});
+
+app.use("/getAllSchema", async function (req, res) {
+  var data = await dbo.collection("schemas").find({}).toArray();;
+  res.json(data);
+
+});
 
 //This route will be used as an endpoint to interact with Graphql, 
 //All queries will go through this route. 
