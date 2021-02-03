@@ -59,7 +59,7 @@ app.use("/updateFields/:id", async function (req, res) {
   let data = req.body;
 
   data.forEach(async (element) => {
-    var update = { $set: {} };
+    let update = { $set: {} };
     update.$set[element.fieldName] = element.fieldValue;
 
     await dbo.collection("HomePage").updateOne(
@@ -73,7 +73,7 @@ app.use("/updateFields/:id", async function (req, res) {
 
 
 app.use("/getPageData/:page", async function (req, res) {
-  var data = await dbo.collection("HomePage").findOne({ page: req.params.page });
+  let data = await dbo.collection("HomePage").findOne({ page: req.params.page });
   res.json(data);
 
 });
@@ -87,7 +87,14 @@ app.use("/disableField", async function (req, res) {
 
 });
 
-app.use("/createCollection", function (req, res) {
+app.use("/createCollection", async function (req, res) {
+  let data = await dbo.collection("Pages").findOne({ fieldName: req.body.fieldName });
+
+  if (data) {
+    res.json(false);
+    return false;
+  }
+
   let myObj = {
     fieldName: req.body.fieldName,
     fieldType: req.body.fieldType,
@@ -98,12 +105,17 @@ app.use("/createCollection", function (req, res) {
   dbo.collection("Pages").insertOne(myObj, function (err) {
     if (err) throw err;
     console.log("1 document inserted");
-    res.send("Done");
+    res.json(true);
   });
 
 });
 
-app.use("/createSchema", function (req, res) {
+app.use("/createSchema", async function (req, res) {
+  let data = await dbo.collection("schemas").findOne({ name: req.body.page.toLowerCase() });
+  if (data) {
+    res.json(false);
+    return false;
+  }
 
   let myObj = {
     name: req.body.page
@@ -112,13 +124,13 @@ app.use("/createSchema", function (req, res) {
   dbo.collection("schemas").insertOne(myObj, function (err) {
     if (err) throw err;
     console.log("1 document inserted");
-    res.send("Done");
+    res.json(true);
   });
 
 });
 
 app.use("/getAllSchema", async function (req, res) {
-  var data = await dbo.collection("schemas").find({}).toArray();;
+  let data = await dbo.collection("schemas").find({}).toArray();;
   res.json(data);
 
 });
