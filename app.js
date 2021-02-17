@@ -1,4 +1,5 @@
 const express = require('express');
+var request = require('request');
 const graphqlHTTP = require('express-graphql').graphqlHTTP;
 const schema = require('./schema')
 var cors = require('cors')
@@ -84,6 +85,22 @@ app.use("/disableField", async function (req, res) {
     { _id: ObjectId(data.id) },
     { $set: { "disabled": data.disable } });
   res.send("Done")
+
+});
+
+app.use("/getAnalyticsSummary", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://arc-cluster-spincvalpha-ne22bm.searchbase.io/_analytics/jobs/summary',
+    'headers': {
+      'Authorization':'Basic ZGQ4M2FlMzQwZDI5OjFjNGYwYTJlLTA2MDktNDU1MS04NDkxLTc5NmU1YTk2NDgzMw=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
 
 });
 
