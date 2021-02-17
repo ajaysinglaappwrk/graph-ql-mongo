@@ -165,8 +165,8 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.use("/createMessage", async function (req, res) {
-  createMessage('myqueue', req.body);
-  res.send('done');
+  createMessage('myqueue', JSON.stringify(req.body.data));
+  res.json(true);
 
 });
 app.use("/", async function (req, res) {
