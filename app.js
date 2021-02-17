@@ -165,7 +165,7 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.use("/createMessage", async function (req, res) {
-  createMessage('myqueue', 'test queue message updated');
+  createMessage('myqueue', req.body);
   res.send('done');
 
 });
