@@ -2,6 +2,8 @@ const express = require('express');
 var request = require('request');
 const graphqlHTTP = require('express-graphql').graphqlHTTP;
 const schema = require('./schema')
+
+const createMessage = require('./message')
 var cors = require('cors')
 var ObjectId = require('mongodb').ObjectID;
 const port = process.env.PORT || '3000';
@@ -93,7 +95,7 @@ app.use("/getAnalyticsSummary", async function (req, res) {
     'method': 'GET',
     'url': 'https://arc-cluster-spincvalpha-ne22bm.searchbase.io/_analytics/jobs/summary',
     'headers': {
-      'Authorization':'Basic ZGQ4M2FlMzQwZDI5OjFjNGYwYTJlLTA2MDktNDU1MS04NDkxLTc5NmU1YTk2NDgzMw=='
+      'Authorization': 'Basic ZGQ4M2FlMzQwZDI5OjFjNGYwYTJlLTA2MDktNDU1MS04NDkxLTc5NmU1YTk2NDgzMw=='
     }
   };
   request(options, function (error, response) {
@@ -162,10 +164,17 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
+app.use("/createMessage", async function (req, res) {
+  createMessage('myqueue', 'test queue message updated');
+  res.send('done');
+
+});
 app.use("/", async function (req, res) {
   res.send("API is Running");
 
 });
+
+
 
 app.listen(port, () => {
   console.log('Listening on port ' + port);
