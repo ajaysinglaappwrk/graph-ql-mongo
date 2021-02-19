@@ -174,12 +174,12 @@ app.use('/graphql', graphqlHTTP({
 
 app.use("/createMessage", async function (req, res) {
 
-  // shellJs.cd("F:\dataocms\git-testing");
+   shellJs.cd("F:\dataocms\git-testing");
   const repo = 'sample-next-app';
   const userName = 'ajaysinglaappwrk';
   const password = 'Appwrk@123';
   // Set up GitHub url like this so no manual entry of user pass needed
-  const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo}`;
+  const gitHubUrl = `https://github.com/relevancestudio/sample-next-app`;
   // add local git config like username and email
   simpleGit.addConfig('user.email', 'ajay.singla@appwrk.com');
   simpleGit.addConfig('user.name', 'Appwrk@123');
