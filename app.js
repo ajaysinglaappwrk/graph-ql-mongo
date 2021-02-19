@@ -203,7 +203,7 @@ app.use("/createMessage", async function (req, res) {
         console.log('failed commmit');
       });
   // Finally push to online repository
-  await simpleGitPromise.push('origin', 'master')
+  await simpleGitPromise.push('origin', 'main')
     .then((success) => {
       console.log('repo successfully pushed');
     }, (failed) => {
