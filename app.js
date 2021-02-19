@@ -174,7 +174,7 @@ app.use('/graphql', graphqlHTTP({
 
 app.use("/createMessage", async function (req, res) {
 
-  shellJs.cd("F:\dataocms\git-testing");
+  // shellJs.cd("F:\dataocms\git-testing");
   const repo = 'sample-next-app';
   const userName = 'ajaysinglaappwrk';
   const password = 'Appwrk@123';
