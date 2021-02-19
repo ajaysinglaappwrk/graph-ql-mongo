@@ -1,7 +1,15 @@
 const express = require('express');
 var request = require('request');
+const fs = require('fs')
 const graphqlHTTP = require('express-graphql').graphqlHTTP;
-const schema = require('./schema')
+const schema = require('./schema');
+
+// Simple-git without promise 
+const simpleGit = require('simple-git')();
+// Shelljs package for running shell tasks optional
+const shellJs = require('shelljs');
+// Simple Git with Promise for handling success and failure
+const simpleGitPromise = require('simple-git/promise')();
 
 const createMessage = require('./message')
 var cors = require('cors')
@@ -165,8 +173,48 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.use("/createMessage", async function (req, res) {
-  createMessage('myqueue', JSON.stringify(req.body.data));
-  res.json(true);
+
+  shellJs.cd("F:\dataocms\git-testing");
+  const repo = 'sample-next-app'; 
+  const userName = 'ajaysinglaappwrk';
+  const password = 'Appwrk@123';
+  // Set up GitHub url like this so no manual entry of user pass needed
+  const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo}`;
+  // add local git config like username and email
+  simpleGit.addConfig('user.email','ajay.singla@appwrk.com');
+  simpleGit.addConfig('user.name','Appwrk@123');
+
+  // Add remore repo url as origin to repo
+  simpleGitPromise.addRemote('origin', gitHubUrl);
+  // Add all files for commit
+    simpleGitPromise.add('.')
+      .then(
+         (addSuccess) => {
+            console.log(addSuccess);
+         }, (failedAdd) => {
+            console.log('adding files failed');
+      });
+  // Commit files as Initial Commit
+   simpleGitPromise.commit('Intial commit by simplegit')
+     .then(
+        (successCommit) => {
+          console.log(successCommit);
+       }, (failed) => {
+          console.log('failed commmit');
+   });
+  // Finally push to online repository
+   simpleGitPromise.push('origin','master')
+      .then((success) => {
+         console.log('repo successfully pushed');
+      },(failed)=> {
+         console.log('repo push failed');
+   });
+  // fs.writeFile('ftp://waws-prod-yq1-001.ftp.azurewebsites.windows.net/site/wwwroot/ExportedJSX.js', 'My Test content will go here', (err) => {
+  //   var aa = err;
+  //   res.json(true);
+
+  // })
+  // createMessage('myqueue', JSON.stringify(req.body.data));
 
 });
 app.use("/", async function (req, res) {
