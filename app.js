@@ -174,7 +174,7 @@ app.use('/graphql', graphqlHTTP({
 
 app.use("/insertEditorState", async function (req, res) {
   let myObj = {
-    pagename: 'home', //hard coded for now need to send from UI
+    pagename: req.body.page, //hard coded for now need to send from UI
     jsxData: JSON.stringify(req.body.jsxData),
     editorState: req.body.editorState
   }
@@ -203,12 +203,10 @@ app.use("/updateEditorState/:id", async function (req, res) {
 
 });
 
-app.use('/getEditorState', async function (req, res) {
+app.use('/getEditorState/:page', async function (req, res) {
 
-  let data = await dbo.collection("pagestates").findOne({ pagename: 'home' });
-  if (data) {
-    res.json(data);
-  }
+  let data = await dbo.collection("pagestates").findOne({ pagename: req.params.page });
+  res.json(data);
 });
 
 
