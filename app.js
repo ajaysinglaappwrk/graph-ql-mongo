@@ -177,7 +177,7 @@ app.use("/insertEditorState", async function (req, res) {
     pagename: req.body.page, //hard coded for now need to send from UI
     jsxData: JSON.stringify(req.body.jsxData),
     editorState: req.body.editorState,
-    isupdated:false
+    isupdated: false
   }
 
   dbo.collection("pagestates").insertOne(myObj, function (err) {
@@ -194,7 +194,7 @@ app.use("/updateEditorState/:id", async function (req, res) {
     $set: {
       jsxData: JSON.stringify(req.body.jsxData),
       editorState: req.body.editorState,
-      isupdated:false
+      isupdated: false
     }
   };
 
@@ -213,51 +213,55 @@ app.use('/getEditorState/:page', async function (req, res) {
 
 
 
-// app.use("/createMessage", async function (req, res) {
+app.use("/createMessage", async function (req, res) {
 
-//    shellJs.cd("F:\dataocms\git-testing");
-//   const repo = 'sample-next-app';
-//   const userName = 'ajaysinglaappwrk';
-//   const password = 'Appwrk@123';
-//   // Set up GitHub url like this so no manual entry of user pass needed
-//   const gitHubUrl = `https://github.com/relevancestudio/sample-next-app`;
-//   // add local git config like username and email
-//   simpleGit.addConfig('user.email', 'ajay.singla@appwrk.com');
-//   simpleGit.addConfig('user.name', 'Appwrk@123');
+ await shellJs.cd('F:\\Training_material\\git-push-node');
 
-//   // Add remore repo url as origin to repo
-//   simpleGitPromise.addRemote('origin', gitHubUrl);
-//   // Add all files for commit
-//   await simpleGitPromise.add('.')
-//     .then(
-//       (addSuccess) => {
-//         console.log(addSuccess);
-//       }, (failedAdd) => {
-//         console.log('adding files failed');
-//       });
-//   // Commit files as Initial Commit
-//   await simpleGitPromise.commit('Intial commit by simplegit')
-//     .then(
-//       (successCommit) => {
-//         console.log(successCommit);
-//       }, (failed) => {
-//         console.log('failed commmit');
-//       });
-//   // Finally push to online repository
-//   await simpleGitPromise.push('origin', 'main')
-//     .then((success) => {
-//       console.log('repo successfully pushed');
-//     }, (failed) => {
-//       console.log('repo push failed');
-//     });
-//   // fs.writeFile('ftp://waws-prod-yq1-001.ftp.azurewebsites.windows.net/site/wwwroot/ExportedJSX.js', 'My Test content will go here', (err) => {
-//   //   var aa = err;
-//   //   res.json(true);
+  shellJs.ls('*.js').forEach(function (file) {
+    let aa = file;
+  });
+  const repo = 'sample-next-app';
+  const userName = 'ajaysinglaappwrk';
+  const password = 'Appwrk@123';
+  // Set up GitHub url like this so no manual entry of user pass needed
+  const gitHubUrl = `https://github.com/ajaysinglaappwrk/local-git-push-testing`;
+  // add local git config like username and email
+  simpleGit.addConfig('user.email', 'ajay.singla@appwrk.com');
+  simpleGit.addConfig('user.name', 'Appwrk@123');
 
-//   // })
-//   // createMessage('myqueue', JSON.stringify(req.body.data));
+  // Add remore repo url as origin to repo
+  simpleGitPromise.addRemote('origin', gitHubUrl);
+  // Add all files for commit
+  await simpleGitPromise.add('.')
+    .then(
+      (addSuccess) => {
+        console.log(addSuccess);
+      }, (failedAdd) => {
+        console.log('adding files failed');
+      });
+  // Commit files as Initial Commit
+  await simpleGitPromise.commit('Intial commit by simplegit')
+    .then(
+      (successCommit) => {
+        console.log(successCommit);
+      }, (failed) => {
+        console.log('failed commmit');
+      });
+  // Finally push to online repository
+  await simpleGitPromise.push('origin', 'main')
+    .then((success) => {
+      console.log('repo successfully pushed');
+    }, (failed) => {
+      console.log('repo push failed');
+    });
+  // fs.writeFile('ftp://waws-prod-yq1-001.ftp.azurewebsites.windows.net/site/wwwroot/ExportedJSX.js', 'My Test content will go here', (err) => {
+  //   var aa = err;
+  //   res.json(true);
 
-// });
+  // })
+  // createMessage('myqueue', JSON.stringify(req.body.data));
+
+});
 
 app.use("/", async function (req, res) {
   res.send("API is Running");
