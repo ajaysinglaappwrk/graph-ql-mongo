@@ -176,7 +176,8 @@ app.use("/insertEditorState", async function (req, res) {
   let myObj = {
     pagename: req.body.page, //hard coded for now need to send from UI
     jsxData: JSON.stringify(req.body.jsxData),
-    editorState: req.body.editorState
+    editorState: req.body.editorState,
+    isupdated:false
   }
 
   dbo.collection("pagestates").insertOne(myObj, function (err) {
@@ -192,7 +193,8 @@ app.use("/updateEditorState/:id", async function (req, res) {
   let update = {
     $set: {
       jsxData: JSON.stringify(req.body.jsxData),
-      editorState: req.body.editorState
+      editorState: req.body.editorState,
+      isupdated:false
     }
   };
 
