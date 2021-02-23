@@ -215,22 +215,35 @@ app.use('/getEditorState/:page', async function (req, res) {
 
 app.use("/createMessage", async function (req, res) {
 
- await shellJs.cd('F:\\Training_material\\git-push-node');
+  await shellJs.cd('F:\\Training_material\\git-push-node');
 
   shellJs.ls('*.js').forEach(function (file) {
     let aa = file;
   });
+
+  shellJs.exec()
   const repo = 'sample-next-app';
   const userName = 'ajaysinglaappwrk';
   const password = 'Appwrk@123';
   // Set up GitHub url like this so no manual entry of user pass needed
   const gitHubUrl = `https://github.com/ajaysinglaappwrk/local-git-push-testing`;
   // add local git config like username and email
-  simpleGit.addConfig('user.email', 'ajay.singla@appwrk.com');
-  simpleGit.addConfig('user.name', 'Appwrk@123');
+  await simpleGit.addConfig('user.email', 'ajay.singla@appwrk.com');
+  await simpleGit.addConfig('user.name', 'Appwrk@123');
 
+  // const initResult = await simpleGit.init();
+  // const addRemoteResult = await simpleGit.addRemote('origin', gitHubUrl);
+
+
+  // // Removing remote to make sure appropriate remote has been added
+  // simpleGitPromise.removeRemote('https://github.com/ajaysinglaappwrk/graph-ql-mongo.git', function (data) {
+  //   var aa = 4 + 5
+  // });
   // Add remore repo url as origin to repo
   simpleGitPromise.addRemote('origin', gitHubUrl);
+
+  var bb = await simpleGitPromise.listRemote();
+
   // Add all files for commit
   await simpleGitPromise.add('.')
     .then(
@@ -240,14 +253,15 @@ app.use("/createMessage", async function (req, res) {
         console.log('adding files failed');
       });
   // Commit files as Initial Commit
-  await simpleGitPromise.commit('Intial commit by simplegit')
+  await simpleGitPromise.commit('Automatically committing from')
     .then(
       (successCommit) => {
         console.log(successCommit);
       }, (failed) => {
         console.log('failed commmit');
       });
-  // Finally push to online repository
+
+  //Finally push to online repository
   await simpleGitPromise.push('origin', 'main')
     .then((success) => {
       console.log('repo successfully pushed');
