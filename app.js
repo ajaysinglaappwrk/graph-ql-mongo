@@ -277,6 +277,27 @@ app.use("/createMessage", async function (req, res) {
 
 });
 
+app.use("/savecontent", async function (req, res) {
+
+  //Cleaning up the collection for the current page
+  await dbo.collection("PageContent").remove({ page: "Home" })
+
+  let data = req.body;
+
+  let dataToSave = {};
+  data.forEach(element => {
+    dataToSave[element.fieldName] = element.fieldValue;
+    dataToSave["page"] = 'Home'; // Need to make it dynamic
+  });
+
+  dbo.collection("PageContent").insertOne(dataToSave, function (err) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    res.send("Done");
+  });
+
+});
+
 app.use("/", async function (req, res) {
   res.send("API is Running");
 
@@ -286,4 +307,4 @@ app.use("/", async function (req, res) {
 
 app.listen(port, () => {
   console.log('Listening on port ' + port);
-}); 
+});
