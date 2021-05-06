@@ -160,6 +160,7 @@ app.use("/getPopularResults", async function (req, res) {
     if (error) throw new Error(error);
     console.log(response.body);
     res.json(JSON.parse(response.body));
+    
   });
 
 });
