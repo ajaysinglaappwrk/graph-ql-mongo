@@ -160,7 +160,7 @@ app.use("/getPopularResults", async function (req, res) {
     if (error) throw new Error(error);
     console.log(response.body);
     res.json(JSON.parse(response.body));
-    
+
   });
 
 });
@@ -219,6 +219,23 @@ app.use("/getRequestDistribution", async function (req, res) {
   var options = {
     'method': 'GET',
     'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/request-distribution',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getAdvanceSummary", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/advanced',
     'headers': {
       'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
     }
