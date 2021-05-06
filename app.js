@@ -101,9 +101,9 @@ app.use("/disableField", async function (req, res) {
 app.use("/getAnalyticsSummary", async function (req, res) {
   var options = {
     'method': 'GET',
-    'url': 'https://arc-cluster-spincvalpha-ne22bm.searchbase.io/_analytics/jobs/summary',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/summary',
     'headers': {
-      'Authorization': 'Basic ZGQ4M2FlMzQwZDI5OjFjNGYwYTJlLTA2MDktNDU1MS04NDkxLTc5NmU1YTk2NDgzMw=='
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
     }
   };
   request(options, function (error, response) {
