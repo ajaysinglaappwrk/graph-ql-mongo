@@ -114,6 +114,121 @@ app.use("/getAnalyticsSummary", async function (req, res) {
 
 });
 
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getPopularSearches", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-searches',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getNoResultSearches", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/no-result-searches',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getPopularResults", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-results',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getPopularFilters", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-filters',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getPopularCountries", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/geo-distribution',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getSearchLatency", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/latency',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getRequestDistribution", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/request-distribution',
+    'headers': {
+      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
 app.use("/createCollection", async function (req, res) {
   let data = await dbo.collection("Pages").findOne({ fieldName: req.body.fieldName });
 
