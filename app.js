@@ -118,9 +118,9 @@ app.use("/getAnalyticsSummary", async function (req, res) {
 app.use("/getPopularSearches", async function (req, res) {
   var options = {
     'method': 'GET',
-    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-searches',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-searches?click_analytics=true',
     'headers': {
-      'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
+      'Authorization': 'Basic Yzg2OWVkMTcwNzViOjEzNTZjYzQ3LWNkOTQtNGRjOS04ZDFiLWJmYmY1Mjc3ZDhiMQ=='
     }
   };
   request(options, function (error, response) {
@@ -151,7 +151,7 @@ app.use("/getNoResultSearches", async function (req, res) {
 app.use("/getPopularResults", async function (req, res) {
   var options = {
     'method': 'GET',
-    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-results',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-results?click_analytics=true',
     'headers': {
       'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
     }
@@ -169,7 +169,7 @@ app.use("/getPopularResults", async function (req, res) {
 app.use("/getPopularFilters", async function (req, res) {
   var options = {
     'method': 'GET',
-    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-filters',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/popular-filters?click_analytics=true',
     'headers': {
       'Authorization': 'Basic NDU5ZjYwYTczOTQ0OjM2YmY1YzBlLTdhNzUtNGIyZi05Yjc2LWFmZWJmYTBhNGY4Mg=='
     }
