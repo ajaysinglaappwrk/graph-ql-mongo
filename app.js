@@ -247,6 +247,41 @@ app.use("/getAdvanceSummary", async function (req, res) {
   });
 
 });
+
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getRecentSearches", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/recent-searches?size=100&show_global=true',
+    'headers': {
+      'Authorization': 'Basic Z0xQNjg3M21MOjk1ZjYxMThkLTY4ZGEtNDFiMS1iZGFlLWE3YmU5MDQ1MThiYw=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+//https://arc-api.appbase.io/?version=latest#dc59f65f-c724-4ad2-a8bc-a3da56dc2be7
+app.use("/getRecentResults", async function (req, res) {
+  var options = {
+    'method': 'GET',
+    'url': 'https://spincv-prod-tgooeov-arc.searchbase.io/_analytics/jobs/recent-results?size=100&show_global=true',
+    'headers': {
+      'Authorization': 'Basic Z0xQNjg3M21MOjk1ZjYxMThkLTY4ZGEtNDFiMS1iZGFlLWE3YmU5MDQ1MThiYw=='
+    }
+  };
+  request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+    res.json(JSON.parse(response.body));
+  });
+
+});
+
+
 app.use("/createCollection", async function (req, res) {
   let data = await dbo.collection("Pages").findOne({ fieldName: req.body.fieldName });
 
